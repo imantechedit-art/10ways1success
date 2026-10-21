@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10Ways1Success — Professional Website Development</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#F3E5AB',
+                            500: '#D4AF37',
+                            600: '#C5A028',
+                            700: '#997A15',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Variables for Themes */
+        :root {
+            --bg-primary: #FAFAFA;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #555555;
+            --border-color: #E2E8F0;
+            --gold-primary: #D4AF37;
+            --gold-hover: #C5A028;
+            --gold-light: rgba(212, 175, 55, 0.12);
+            --shadow-subtle: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --shadow-gold: 0 10px 25px -5px rgba(212, 175, 55, 0.25);
+            --shine-color: rgba(255, 255, 255, 0.65);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0F0F11;
+            --bg-surface: #18181C;
+            --bg-card: #1E1E24;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --border-color: #2D2D35;
+            --gold-primary: #E5C158;
+            --gold-hover: #D4AF37;
+            --gold-light: rgba(229, 193, 88, 0.15);
+            --shadow-subtle: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            --shadow-gold: 0 10px 25px -5px rgba(229, 193, 88, 0.2);
+            --shine-color: rgba(255, 255, 255, 0.18);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Gold Gradient Text */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-gradient {
+            border-image: linear-gradient(135deg, #D4AF37, #AA771C) 1;
+        }
+
+        /* Continuous Shiny Card Effect */
+        .shiny-card {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .shiny-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 20%,
+                transparent 40%,
+                var(--shine-color) 50%,
+                transparent 60%,
+                transparent 100%
+            );
+            transform: rotate(25deg);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Staggered Continuous Shine Animations */
+        .card-delay-1::before {
+            animation: shineSweep 4s infinite ease-in-out 0s;
+        }
+        .card-delay-2::before {
+            animation: shineSweep 4s infinite ease-in-out 1.3s;
+        }
+        .card-delay-3::before {
+            animation: shineSweep 4s infinite ease-in-out 2.6s;
+        }
+
+        @keyframes shineSweep {
+            0% {
+                left: -150%;
+            }
+            35% {
+                left: 150%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* Respect Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .shiny-card::before {
+                animation: none !important;
+                display: none;
+            }
+        }
+
+        /* Hover Zoom for cards */
+        .shiny-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* Gold Gradient Button */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+            color: #111111;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+        }
+
+        .btn-outline-gold {
+            border: 2px solid var(--gold-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .btn-outline-gold:hover {
+            background-color: var(--gold-light);
+            border-color: var(--gold-hover);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+
+    <!-- Header / Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-opacity-90 transition-colors duration-300 border-b border-[var(--border-color)]" style="background-color: var(--bg-surface);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-600 via-gold-500 to-yellow-200 flex items-center justify-center text-black font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
+                    10
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading text-xl font-bold tracking-wider gold-gradient-text">10Ways1Success</span>
+                    <span class="text-[10px] tracking-widest text-gray-400 uppercase -mt-1">Digital Excellence</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#home" class="hover:text-[var(--gold-primary)] transition-colors">Home</a>
+                <a href="#packages" class="hover:text-[var(--gold-primary)] transition-colors">Packages</a>
+                <a href="#about" class="hover:text-[var(--gold-primary)] transition-colors">About</a>
+                <a href="#contact" class="hover:text-[var(--gold-primary)] transition-colors">Contact</a>
+            </nav>
+
+            <!-- Actions & Theme Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="themeToggleBtn" aria-label="Toggle Theme" class="w-10 h-10 rounded-full flex items-center justify-center border border-[var(--border-color)] hover:border-[var(--gold-primary)] transition-all text-lg focus:outline-none focus:ring-2 focus:ring-gold-500">
+                    <i id="themeIcon" class="fas me-0 text-amber-500"></i>
+                </button>
+                <a href="#packages" class="hidden sm:inline-flex btn-gold px-5 py-2.5 rounded-full text-xs tracking-wider uppercase">
+                    Order Now
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-[var(--border-color)] bg-[var(--bg-surface)] px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-nav-link block py-2 border-b border-gray-100 dark:border-gray-800">Home</a>
+            <a href="#packages" class="mobile-nav-link block py-2 border-b border-gray-100 dark:border-gray-800">Packages</a>
+            <a href="#about" class="mobile-nav-link block py-2 border-b border-gray-100 dark:border-gray-800">About</a>
+            <a href="#contact" class="mobile-nav-link block py-2">Contact</a>
+            <a href="#packages" class="block w-full text-center btn-gold py-3 rounded-xl mt-4 text-xs font-bold uppercase tracking-wider">
+                Explore Packages
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="home" class="relative py-20 lg:py-32 overflow-hidden">
+            <!-- Background Glow Decor -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-600 dark:text-gold-400 text-xs font-semibold uppercase tracking-widest mb-8">
+                    <i class="fas fa-crown text-xs"></i> Premium Web Development Service
+                </div>
+                
+                <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight">
+                    Your Website. <br class="hidden sm:inline" />
+                    <span class="gold-gradient-text">Your Success.</span>
+                </h1>
+
+                <p class="mt-6 text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+                    We create beautiful, affordable websites for businesses, schools, and individuals. Turn your ideas into reality with 10Ways1Success.
+                </p>
+
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#packages" class="btn-gold px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider w-full sm:w-auto text-center">
+                        EXPLORE PACKAGES
+                    </a>
+                    <a href="#about" class="btn-outline-gold px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider w-full sm:w-auto text-center">
+                        GET STARTED
+                    </a>
+                </div>
+
+                <!-- Subtle feature badges -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-[var(--border-color)] text-xs font-medium text-[var(--text-secondary)]">
+                    <div class="flex items-center justify-center gap-2">
+                        <i class="fas fa-check-circle text-gold-500"></i> Fast Delivery
+                    </div>
+                    <div class="flex items-center justify-center gap-2">
+                        <i class="fas fa-mobile-alt text-gold-500"></i> Fully Responsive
+                    </div>
+                    <div class="flex items-center justify-center gap-2">
+                        <i class="fas fa-shield-alt text-gold-500"></i> Reliable Support
+                    </div>
+                    <div class="flex items-center justify-center gap-2">
+                        <i class="fas fa-tag text-gold-500"></i> Transparent Pricing
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Packages Section -->
+        <section id="packages" class="py-20 bg-opacity-50" style="background-color: var(--bg-surface);">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="font-heading text-3xl sm:text-4xl font-bold tracking-tight">
+                        Our Website Packages
+                    </h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-gold-500 to-yellow-200 mx-auto my-4 rounded-full"></div>
+                    <p class="text-[var(--text-secondary)]">
+                        Select the perfect package for your project needs and budget. Transparent pricing with no hidden charges.
+                    </p>
+                </div>
+
+                <!-- Package Grid -->
+                <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                    
+                    <!-- PACKAGE 1: BUDGET WEBSITE -->
+                    <div class="shiny-card card-delay-1 rounded-2xl p-8 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Package 1</div>
+                            <h3 class="font-heading text-2xl font-bold">Budget Website</h3>
+                            <p class="text-xs text-[var(--text-secondary)] mt-1">Plain 2D website design</p>
+                            
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold gold-gradient-text">RM25</span>
+                                <span class="text-xs text-gray-400">/ project</span>
+                            </div>
+
+                            <p class="text-sm text-[var(--text-secondary)] mb-6 border-b border-[var(--border-color)] pb-6">
+                                Suitable for simple business websites, school projects, and basic personal websites.
+                            </p>
+
+                            <!-- Features List -->
+                            <ul class="space-y-4 text-sm mb-8">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-gold-500 mt-1"></i>
+                                    <span>Plain 2D custom website design</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-gold-500 mt-1"></i>
+                                    <span>Ideal for school & personal projects</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-clock text-gold-500 mt-1"></i>
+                                    <span><strong>Free updates for 1st 3 months</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3 text-xs text-[var(--text-secondary)]">
+                                    <i class="fas fa-info-circle text-gray-400 mt-0.5"></i>
+                                    <span>RM10 per update after free period</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="pay.html?package=budget" class="w-full text-center btn-gold py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs block">
+                            BUY NOW — RM25
+                        </a>
+                    </div>
+
+                    <!-- PACKAGE 2: MID-RANGE WEBSITE (FEATURED) -->
+                    <div class="shiny-card card-delay-2 rounded-2xl p-8 flex flex-col justify-between shadow-xl relative border-2 border-gold-500 md:-translate-y-2">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-600 to-gold-400 text-black text-[10px] font-extrabold tracking-widest uppercase px-4 py-1 rounded-full shadow">
+                            MOST POPULAR
+                        </div>
+
+                        <div>
+                            <div class="text-xs font-bold uppercase tracking-widest text-gold-500 mb-2 mt-2">Package 2</div>
+                            <h3 class="font-heading text-2xl font-bold">Mid-Range Website</h3>
+                            <p class="text-xs text-[var(--text-secondary)] mt-1">Modern 2D website design</p>
+                            
+                            <div class="my-6">
+                                <span class="text-5xl font-extrabold gold-gradient-text">RM45</span>
+                                <span class="text-xs text-gray-400">/ project</span>
+                            </div>
+
+                            <p class="text-sm text-[var(--text-secondary)] mb-6 border-b border-[var(--border-color)] pb-6">
+                                More polished and professional appearance suitable for businesses, school websites, and portfolios.
+                            </p>
+
+                            <!-- Features List -->
+                            <ul class="space-y-4 text-sm mb-8">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-gold-500 mt-1"></i>
+                                    <span>Modern 2D professional layout</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-gold-500 mt-1"></i>
+                                    <span>Polished interactive elements</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-clock text-gold-500 mt-1"></i>
+                                    <span><strong>Free updates for 1st 10 months</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3 text-xs text-[var(--text-secondary)]">
+                                    <i class="fas fa-info-circle text-gray-400 mt-0.5"></i>
+                                    <span>RM10 per update after free period</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="pay.html?package=midrange" class="w-full text-center btn-gold py-4 rounded-xl font-bold uppercase tracking-wider text-xs block shadow-lg">
+                            BUY NOW — RM45
+                        </a>
+                    </div>
+
+                    <!-- PACKAGE 3: PREMIUM WEBSITE -->
+                    <div class="shiny-card card-delay-3 rounded-2xl p-8 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Package 3</div>
+                            <h3 class="font-heading text-2xl font-bold">Premium Website</h3>
+                            <p class="text-xs text-[var(--text-secondary)] mt-1">Premium modern 2D/3D design</p>
+                            
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold gold-gradient-text">RM150</span>
+                                <span class="text-xs text-gray-400">/ project</span>
+                            </div>
+
+                            <p class="text-sm text-[var(--text-secondary)] mb-6 border-b border-[var(--border-color)] pb-6">
+                                Advanced visual presentation and animations for businesses requiring a flagship web presence.
+                            </p>
+
+                            <!-- Features List -->
+                            <ul class="space-y-4 text-sm mb-8">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-gold-500 mt-1"></i>
+                                    <span>Premium modern 2D/3D visual layout</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-infinity text-gold-500 mt-1"></i>
+                                    <span><strong>Free updates for life</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-star text-gold-500 mt-1"></i>
+                                    <span>Big updates free for 1st 2 months</span>
+                                </li>
+                                <li class="flex items-start gap-3 text-xs text-[var(--text-secondary)]">
+                                    <i class="fas fa-info-circle text-gray-400 mt-0.5"></i>
+                                    <span>RM20 per major update after 2 months</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="pay.html?package=premium" class="w-full text-center btn-gold py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs block">
+                            BUY NOW — RM150
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold">About 10Ways1Success</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-gold-500 to-yellow-200 mx-auto my-4 rounded-full"></div>
+                <p class="text-lg text-[var(--text-secondary)] leading-relaxed mt-6 max-w-3xl mx-auto">
+                    10Ways1Success helps turn ideas into websites. Whether you need a simple website for a school project, a professional website for your business, or a premium modern design, we offer affordable packages to get your project started.
+                </p>
+
+                <div class="mt-12 grid sm:grid-cols-3 gap-6 text-left">
+                    <div class="p-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">Tailored Ideas</h3>
+                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Customized builds crafted to fit your exact specifications and brand personality.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">Affordable Rates</h3>
+                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Accessible prices starting from RM25 so students and small businesses can shine online.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">Direct Communication</h3>
+                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Easy order process via WhatsApp for clear, prompt updates on your project.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-opacity-50" style="background-color: var(--bg-surface);">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="shiny-card rounded-3xl p-10 sm:p-16 border border-[var(--border-color)] shadow-2xl relative">
+                    <h2 class="font-heading text-3xl sm:text-4xl font-bold">Let’s Build Your Website</h2>
+                    <p class="text-[var(--text-secondary)] mt-4 max-w-xl mx-auto">
+                        Have an idea for your next website? Choose a package and tell us what you need.
+                    </p>
+
+                    <div class="mt-8 flex justify-center">
+                        <a href="https://wa.me/60142815551" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-full text-sm uppercase tracking-wider transition-all shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-0.5">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                            <span>CONTACT US ON WHATSAPP</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] py-12 bg-[var(--bg-surface)] text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gold-500 flex items-center justify-center text-black font-extrabold text-sm">10</div>
+                <span class="font-heading font-bold gold-gradient-text text-base">10Ways1Success</span>
+            </div>
+
+            <p class="text-xs text-[var(--text-secondary)] text-center">
+                Affordable Websites. Endless Possibilities.
+            </p>
+
+            <div class="flex items-center gap-6 text-xs text-[var(--text-secondary)]">
+                <a href="https://wa.me/60142815551" target="_blank" class="hover:text-gold-500 transition-colors">
+                    <i class="fab fa-whatsapp text-sm me-1"></i> +60 14-281 5551
+                </a>
+                <span>&copy; <span id="currentYear"></span> 10Ways1Success</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vanilla JavaScript for Theme & Interactions -->
+    <script>
+        // Set dynamic year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('10ways_theme', theme);
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun text-amber-400';
+            } else {
+                themeIcon.className = 'fas fa-moon text-gray-700';
+            }
+        }
+
+        // Detect initial preference
+        const savedTheme = localStorage.getItem('10ways_theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (systemPrefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

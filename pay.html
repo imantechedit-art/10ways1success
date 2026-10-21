@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Order — 10Ways1Success</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#F3E5AB',
+                            500: '#D4AF37',
+                            600: '#C5A028',
+                            700: '#997A15',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Variables for Themes */
+        :root {
+            --bg-primary: #FAFAFA;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #555555;
+            --border-color: #E2E8F0;
+            --gold-primary: #D4AF37;
+            --gold-hover: #C5A028;
+            --gold-light: rgba(212, 175, 55, 0.12);
+            --shadow-subtle: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --shadow-gold: 0 10px 25px -5px rgba(212, 175, 55, 0.25);
+            --shine-color: rgba(255, 255, 255, 0.65);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0F0F11;
+            --bg-surface: #18181C;
+            --bg-card: #1E1E24;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --border-color: #2D2D35;
+            --gold-primary: #E5C158;
+            --gold-hover: #D4AF37;
+            --gold-light: rgba(229, 193, 88, 0.15);
+            --shadow-subtle: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            --shadow-gold: 0 10px 25px -5px rgba(229, 193, 88, 0.2);
+            --shine-color: rgba(255, 255, 255, 0.18);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Shiny Card Overlay */
+        .shiny-card {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .shiny-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 20%,
+                transparent 40%,
+                var(--shine-color) 50%,
+                transparent 60%,
+                transparent 100%
+            );
+            transform: rotate(25deg);
+            pointer-events: none;
+            z-index: 10;
+            animation: shineSweep 4s infinite ease-in-out 0.5s;
+        }
+
+        @keyframes shineSweep {
+            0% { left: -150%; }
+            35% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .shiny-card::before {
+                animation: none !important;
+                display: none;
+            }
+        }
+
+        /* Gold Button Styling */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+            color: #111111;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-gold:hover:not(:disabled) {
+            background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+        }
+        .btn-gold:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+            filter: grayscale(80%);
+        }
+
+        /* Form Inputs */
+        input[type="text"], textarea, select {
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+
+    <!-- Header / Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-opacity-90 border-b border-[var(--border-color)]" style="background-color: var(--bg-surface);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-600 via-gold-500 to-yellow-200 flex items-center justify-center text-black font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
+                    10
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading text-xl font-bold tracking-wider gold-gradient-text">10Ways1Success</span>
+                    <span class="text-[10px] tracking-widest text-gray-400 uppercase -mt-1">Checkout & Payment</span>
+                </div>
+            </a>
+
+            <!-- Back Link & Theme Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-xs font-semibold text-[var(--text-secondary)] hover:text-gold-500 transition-colors flex items-center gap-1">
+                    <i class="fas fa-arrow-left"></i> <span class="hidden sm:inline">Back to Home</span>
+                </a>
+                <button id="themeToggleBtn" aria-label="Toggle Theme" class="w-10 h-10 rounded-full flex items-center justify-center border border-[var(--border-color)] hover:border-[var(--gold-primary)] transition-all text-lg focus:outline-none focus:ring-2 focus:ring-gold-500">
+                    <i id="themeIcon" class="fas me-0 text-amber-500"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Page Title -->
+            <div class="text-center mb-10">
+                <h1 class="font-heading text-3xl sm:text-4xl font-extrabold">Complete Your Website Order</h1>
+                <p class="text-sm text-[var(--text-secondary)] mt-2 max-w-xl mx-auto">
+                    Tell us about your project, pay using Touch ’n Go, and contact us on WhatsApp after completing your payment.
+                </p>
+            </div>
+
+            <!-- Order Form Card -->
+            <div class="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl p-6 sm:p-10 shadow-xl space-y-8">
+                
+                <!-- STEP 1: CUSTOMER NAME -->
+                <div>
+                    <label for="customerName" class="block text-sm font-bold uppercase tracking-wider mb-2 text-gold-600 dark:text-gold-400">
+                        Step 1 — Full Name <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="customerName" placeholder="Enter your full name" class="w-full px-4 py-3.5 rounded-xl text-sm" required>
+                    <p id="nameError" class="text-red-500 text-xs mt-1 hidden">Please enter your full name to proceed.</p>
+                </div>
+
+                <!-- STEP 2: WEBSITE DETAILS -->
+                <div>
+                    <label for="websiteDetails" class="block text-sm font-bold uppercase tracking-wider mb-2 text-gold-600 dark:text-gold-400">
+                        Step 2 — Describe Your Website <span class="text-red-500">*</span>
+                    </label>
+                    <textarea id="websiteDetails" rows="5" placeholder="Tell us what website you want us to create. Include the website purpose, pages, features, preferred design, colours, and any other important details." class="w-full px-4 py-3.5 rounded-xl text-sm leading-relaxed" required></textarea>
+                    <p id="detailsError" class="text-red-500 text-xs mt-1 hidden">Please provide details about your website project.</p>
+                </div>
+
+                <!-- STEP 3: REFERENCE PICTURE (OPTIONAL) -->
+                <div>
+                    <div class="block text-sm font-bold uppercase tracking-wider mb-1 text-gold-600 dark:text-gold-400">
+                        Step 3 — Reference Picture (Optional)
+                    </div>
+                    <p class="text-xs text-[var(--text-secondary)] mb-3">
+                        Have an example of the design you want? Upload a reference picture to help us understand your vision.
+                    </p>
+
+                    <div class="border-2 border-dashed border-[var(--border-color)] rounded-2xl p-6 text-center hover:border-gold-500 transition-colors bg-[var(--bg-card)]">
+                        <input type="file" id="referenceImgInput" accept="image/jpeg, image/png, image/webp" class="hidden">
+                        
+                        <div id="uploadPlaceholder" class="space-y-2 cursor-pointer" onclick="document.getElementById('referenceImgInput').click()">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gold-500"></i>
+                            <p class="text-xs font-semibold">Click to upload JPG, PNG, or WEBP image</p>
+                            <p class="text-[10px] text-[var(--text-secondary)]">Max file size: 5MB</p>
+                        </div>
+
+                        <!-- Image Preview Container -->
+                        <div id="previewContainer" class="hidden relative inline-block max-w-full">
+                            <img id="imagePreview" src="#" alt="Reference Preview" class="max-h-64 rounded-xl shadow-md mx-auto object-contain">
+                            <button type="button" id="removeImgBtn" class="mt-3 text-xs bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1">
+                                <i class="fas fa-trash"></i> Remove Image
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-[var(--text-secondary)] mt-2 italic">
+                        <i class="fas fa-info-circle me-1"></i> Note: Reference pictures are for preview here. You must manually attach the image in WhatsApp after clicking "PAID".
+                    </p>
+                </div>
+
+                <!-- STEP 4: PACKAGE SUMMARY -->
+                <div>
+                    <div class="block text-sm font-bold uppercase tracking-wider mb-3 text-gold-600 dark:text-gold-400">
+                        Step 4 — Package Summary
+                    </div>
+
+                    <!-- Selected Package Display Card (Shiny) -->
+                    <div class="shiny-card rounded-2xl p-6 sm:p-8 shadow-md border border-[var(--border-color)]">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-4 mb-4">
+                            <div>
+                                <span id="summaryBadge" class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-gold-500/10 text-gold-600 dark:text-gold-400">
+                                    PACKAGE CREATION
+                                </span>
+                                <h3 id="summaryTitle" class="font-heading text-2xl font-bold mt-1">Select a Package</h3>
+                                <p id="summaryDesign" class="text-xs text-[var(--text-secondary)]">Choose your preferred website package</p>
+                            </div>
+                            <div class="text-left sm:text-right">
+                                <span id="summaryPrice" class="text-3xl font-extrabold gold-gradient-text">RM0</span>
+                            </div>
+                        </div>
+
+                        <!-- Manual Package Switcher if not set or user wants to change -->
+                        <div class="mb-4">
+                            <label for="packageSelect" class="block text-xs font-semibold text-[var(--text-secondary)] mb-1">Change Package:</label>
+                            <select id="packageSelect" class="w-full px-3 py-2 rounded-lg text-xs font-medium">
+                                <option value="budget">Package 1 — Budget Website (RM25)</option>
+                                <option value="midrange">Package 2 — Mid-Range Website (RM45)</option>
+                                <option value="premium">Package 3 — Premium Website (RM150)</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-[var(--text-secondary)]">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle text-gold-500"></i>
+                                <span id="summaryUpdates">Free update policy applies</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle text-gold-500"></i>
+                                <span id="summaryExtraUpdates">Extra update charges apply after period</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: PAYMENT METHOD (TNG ONLY) -->
+                <div>
+                    <div class="block text-sm font-bold uppercase tracking-wider mb-3 text-gold-600 dark:text-gold-400">
+                        Step 5 — Pay Via Touch ’n Go (TNG)
+                    </div>
+
+                    <!-- TNG Selectable Box -->
+                    <div id="tngSelectBox" class="cursor-pointer border-2 border-gold-500 bg-gold-500/5 rounded-2xl p-5 flex items-center justify-between transition-all shadow-md">
+                        <div class="flex items-center gap-4">
+                            <input type="radio" id="tngRadio" name="paymentMethod" value="tng" class="w-5 h-5 text-gold-500 focus:ring-gold-500" checked>
+                            <label for="tngRadio" class="cursor-pointer font-bold text-sm flex items-center gap-2">
+                                <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded">TNG</span>
+                                Touch ’n Go eWallet
+                            </label>
+                        </div>
+                        <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                            <i class="fas fa-check-circle"></i> Active Option
+                        </span>
+                    </div>
+
+                    <!-- TNG QR Display Area -->
+                    <div id="tngQrSection" class="mt-6 p-6 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] text-center space-y-4">
+                        <p class="text-xs font-semibold text-[var(--text-secondary)]">
+                            Scan the QR code using your Touch ’n Go app and pay the exact amount shown in your order summary (<strong id="qrAmountText" class="text-gold-500">RM25</strong>).
+                        </p>
+
+                        <!-- TNG Image container -->
+                        <div class="inline-block p-4 rounded-2xl bg-white border border-gray-200 shadow-inner max-w-xs w-full">
+                            <img id="tngQrImage" src="tng.jpg" alt="Touch 'n Go QR Code" class="w-full h-auto rounded-lg object-contain mx-auto" onerror="this.onerror=null; this.src='https://placehold.co/300x300/0052FF/FFFFFF?text=Touch+%27n+Go+QR\n(tng.jpg)';">
+                        </div>
+
+                        <p class="text-[11px] text-gray-400">
+                            Merchant / Receiver: 10Ways1Success
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 6: PAID BUTTON & SUBMISSION -->
+                <div class="pt-6 border-t border-[var(--border-color)]">
+                    <button id="paidBtn" disabled class="w-full btn-gold py-4 rounded-2xl text-base uppercase font-bold tracking-wider flex items-center justify-center gap-3">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>PAID — SEND ORDER VIA WHATSAPP</span>
+                    </button>
+
+                    <p class="text-xs text-[var(--text-secondary)] text-center mt-4 leading-relaxed">
+                        <i class="fas fa-exclamation-circle text-amber-500 me-1"></i>
+                        After WhatsApp opens, please attach your transaction receipt or screenshot manually so we can verify your payment. If you uploaded a reference picture, attach that separately too.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] py-8 bg-[var(--bg-surface)] text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-[var(--text-secondary)]">
+            <p>&copy; <span id="currentYear"></span> 10Ways1Success. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Order Page Logic JS -->
+    <script>
+        // Dynamic Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('10ways_theme', theme);
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun text-amber-400';
+            } else {
+                themeIcon.className = 'fas fa-moon text-gray-700';
+            }
+        }
+
+        const savedTheme = localStorage.getItem('10ways_theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (systemPrefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // Fixed Package Database
+        const packagesData = {
+            budget: {
+                name: 'Budget Website',
+                price: 'RM25',
+                design: 'Plain 2D website design',
+                updates: 'Free updates for 1st 3 months',
+                extraUpdates: 'RM10 per update after 3 months'
+            },
+            midrange: {
+                name: 'Mid-Range Website',
+                price: 'RM45',
+                design: 'Modern 2D website design',
+                updates: 'Free updates for 1st 10 months',
+                extraUpdates: 'RM10 per update after 10 months'
+            },
+            premium: {
+                name: 'Premium Website',
+                price: 'RM150',
+                design: 'Premium modern 2D/3D design',
+                updates: 'Free updates for life',
+                extraUpdates: 'Big updates free 1st 2 months, then RM20/update'
+            }
+        };
+
+        // Form elements
+        const nameInput = document.getElementById('customerName');
+        const detailsInput = document.getElementById('websiteDetails');
+        const packageSelect = document.getElementById('packageSelect');
+        const tngRadio = document.getElementById('tngRadio');
+        const paidBtn = document.getElementById('paidBtn');
+
+        const summaryTitle = document.getElementById('summaryTitle');
+        const summaryDesign = document.getElementById('summaryDesign');
+        const summaryPrice = document.getElementById('summaryPrice');
+        const summaryUpdates = document.getElementById('summaryUpdates');
+        const summaryExtraUpdates = document.getElementById('summaryExtraUpdates');
+        const qrAmountText = document.getElementById('qrAmountText');
+
+        // Parse URL Query Params
+        const urlParams = new URLSearchParams(window.location.search);
+        let selectedPackageKey = urlParams.get('package');
+
+        if (!packagesData[selectedPackageKey]) {
+            selectedPackageKey = 'budget'; // fallback default
+        }
+
+        packageSelect.value = selectedPackageKey;
+
+        function updatePackageSummary(key) {
+            const pkg = packagesData[key] || packagesData.budget;
+            selectedPackageKey = key;
+
+            summaryTitle.textContent = pkg.name;
+            summaryDesign.textContent = pkg.design;
+            summaryPrice.textContent = pkg.price;
+            summaryUpdates.textContent = pkg.updates;
+            summaryExtraUpdates.textContent = pkg.extraUpdates;
+            qrAmountText.textContent = pkg.price;
+
+            validateForm();
+        }
+
+        // Handle Package Selection Dropdown change
+        packageSelect.addEventListener('change', (e) => {
+            updatePackageSummary(e.target.value);
+        });
+
+        // Initialize Summary
+        updatePackageSummary(selectedPackageKey);
+
+        // Reference Picture Preview Logic
+        const referenceImgInput = document.getElementById('referenceImgInput');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const previewContainer = document.getElementById('previewContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const removeImgBtn = document.getElementById('removeImgBtn');
+
+        referenceImgInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imagePreview.src = event.target.result;
+                    uploadPlaceholder.classList.add('hidden');
+                    previewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImgBtn.addEventListener('click', function() {
+            referenceImgInput.value = '';
+            imagePreview.src = '#';
+            previewContainer.classList.add('hidden');
+            uploadPlaceholder.classList.remove('hidden');
+        });
+
+        // Validation Function
+        function validateForm() {
+            const isNameValid = nameInput.value.trim().length > 0;
+            const isDetailsValid = detailsInput.value.trim().length > 0;
+            const isPkgValid = !!packagesData[selectedPackageKey];
+            const isTngSelected = tngRadio.checked;
+
+            if (isNameValid && isDetailsValid && isPkgValid && isTngSelected) {
+                paidBtn.disabled = false;
+            } else {
+                paidBtn.disabled = true;
+            }
+        }
+
+        nameInput.addEventListener('input', validateForm);
+        detailsInput.addEventListener('input', validateForm);
+        tngRadio.addEventListener('change', validateForm);
+
+        // Handle WhatsApp Submission
+        paidBtn.addEventListener('click', function() {
+            const name = nameInput.value.trim();
+            const details = detailsInput.value.trim();
+            const pkg = packagesData[selectedPackageKey];
+
+            if (!name) {
+                document.getElementById('nameError').classList.remove('hidden');
+                nameInput.focus();
+                return;
+            } else {
+                document.getElementById('nameError').classList.add('hidden');
+            }
+
+            if (!details) {
+                document.getElementById('detailsError').classList.remove('hidden');
+                detailsInput.focus();
+                return;
+            } else {
+                document.getElementById('detailsError').classList.add('hidden');
+            }
+
+            // Target Exact Format:
+            // "Hello, I have paid for my Website Creation (PACKAGE NAME — WEBSITE DETAILS). And here is the proof of transaction."
+            const rawMessage = `Hello, I have paid for my Website Creation (${pkg.name} — ${details}). And here is the proof of transaction.\n\nCustomer Name: ${name}\nAmount Paid: ${pkg.price}\nPayment Method: Touch 'n Go (TNG)`;
+
+            const encodedMessage = encodeURIComponent(rawMessage);
+            const whatsappUrl = `https://wa.me/60142815551?text=${encodedMessage}`;
+
+            // Open WhatsApp in new tab
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
